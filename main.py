@@ -13,13 +13,14 @@ def main(dir, genre, album):
     i=0
     for file in files:        
         print(f"Working {file} in {dir}")
+        name = file[0:-4]
         i=i+1
         f = MP4(f"{dir}/{file}")
         f.delete()
         f.save()
         f['\xa9gen']=[genre]
         f['\xa9alb']=[album]
-        f['\xa9nam']=[file.replace('.mp4','').replace('.m4v','')]
+        f['\xa9nam']=[name]
         f['trkn']=[(i,count)]
         f.save()        
         print(f)
