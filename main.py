@@ -25,8 +25,8 @@ def main(dir, genre, album, disk_total, disk_number, season):
         f['\xa9alb']=[album]
         f['\xa9nam']=[name]
         f['trkn']=[(i,count)]
-        f['disk']=[(disk_number,disk_total)]
-        f['tvsn']=season
+        f['disk']=[(int(disk_number),int(disk_total))]
+        f['tvsn']=[int(season)]
         f.save()        
         print(f)
         print("done")
