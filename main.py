@@ -6,8 +6,11 @@ import os
 @click.command()
 @click.option('--dir', default='.', prompt="Source directory: ", help='Location for mp4 files to apply tags too')
 @click.option('--genre', default='unknown', prompt='Genre: ', help='The movie genre of the movie files')
-@click.option('--album', default='unknown', prompt='Album: ', help='The movie genre of the movie files')
-def main(dir, genre, album):
+@click.option('--album', default='unknown', prompt='Album: ', help='The album/series the movies are from')
+@click.option('--disk_total', default='1', prompt='Total Disks: ', help='Total number of disks in season/series')
+@click.option('--disk_number', default='1', prompt='Disk Number: ', help='Current number for disks in season/series')
+@click.option('--season', default='1', prompt='Season: ', help='Season number in series')
+def main(dir, genre, album, disk_total, disk_number, season):
     files = sorted(os.listdir(dir))
     count = len(files)
     i=0
@@ -22,6 +25,8 @@ def main(dir, genre, album):
         f['\xa9alb']=[album]
         f['\xa9nam']=[name]
         f['trkn']=[(i,count)]
+        f['disk']=[(disk_number,disk_total)]
+        f['tvsn']=season
         f.save()        
         print(f)
         print("done")
