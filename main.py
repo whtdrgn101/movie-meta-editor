@@ -3,6 +3,7 @@ from mutagen.mp4 import MP4
 import click
 import os
 import re
+import string
 
 @click.command()
 @click.option('--dir', default='.', prompt="Source directory: ", help='Location for mp4 files to apply tags too')
@@ -22,8 +23,8 @@ def main(dir, genre, album, disk_total, disk_number, season):
         f = MP4(f"{dir}/{file}")
         f.delete()
         f.save()
-        f['\xa9gen']=[genre]
-        f['\xa9alb']=[album]
+        f['\xa9gen']=[string.capwords(genre)]
+        f['\xa9alb']=[string.capwords(album)]
         f['\xa9nam']=[name]
         f['trkn']=[(i,count)]
         f['disk']=[(int(disk_number),int(disk_total))]
